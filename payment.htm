@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .form-group {
+            display: block;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        label {
+            display: block;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        input[type="text"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        input[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 1.2em;
+            border-radius: 5px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            cursor:pointer
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Payment Page</h1>
+        <form action="/payment" method="post">
+          <div class="form-group">
+              <label for="total-amount">Total Amount</label>
+              <input type="text" id="total-amount" name="total-amount" value="" disabled>
+           <!-- This code adds a window.onload event listener that fetches the total amount from the previous cart page using localStorage when the payment page loads. The total amount is then displayed in the total-amount input field.
+
+Please note that this is just one way to fetch the total amount from the previous cart page and display it on the payment page. You may need to customize this code to fit your specific needs and integrate it with your website’s backend. -->   
+          </div>
+
+          <!-- Payment methods -->
+          <div class='form-group payment-methods'>
+             <label>Payment Method:</label>
+             <label><input type='radio' name='payment-method' value='credit-debit' onclick='showCardForm()'> Credit/Debit Card</label>
+             <label><input type='radio' name='payment-method' value='google-pay' onclick='hideCardForm()'> Google Pay</label>
+             <label><input type='radio' name='payment-method' value='paytm' onclick='hideCardForm()'> Paytm</label>
+             <label><input type='radio' name='payment-method' value='phonepe' onclick='hideCardForm()'> PhonePe</label>
+           </div>
+
+          <!-- Credit/debit card form -->
+          <div id="card-form" style="display:none">
+              <div class="form-group">
+                  <label for="name">Name on Card</label>
+                  <input type="text" id="name" name="name" required>
+              </div>
+
+              <div class="form-group">
+                  <label for="card-number">Card Number</label>
+                  <input type="text" id="card-number" name="card-number" required>
+              </div>
+
+              <div class="form-group">
+                  <label for="expiry-date">Expiry Date</label>
+                  <input type="text" id="expiry-date" name="expiry-date" required>
+              </div>
+
+              <div class="form-group">
+                  <label for="cvv">CVV</label>
+                  <input type="text" id="cvv" name="cvv" required>
+              </div>
+          </div>
+
+           <!-- Submit button -->
+           <input type="submit" value="Submit Payment">
+           
+        </form>
+    </div>
+
+    <!-- Example function for sending the total amount to the shopper -->
+    <script>
+        function sendTotalToShopper(total) {
+            // Send the total amount to the shopper using your preferred method
+        }
+
+        // Show/hide credit/debit card form
+        function showCardForm() {
+          document.getElementById('card-form').style.display = 'block';
+        }
+        
+        function hideCardForm() {
+          document.getElementById('card-form').style.display = 'none';
+        }
+
+        // Fetch total amount from previous cart page
+        window.onload = function() {
+          var cartTotal = localStorage.getItem('cartTotal');
+          document.getElementById('total-amount').value = cartTotal;
+        }
+    </script>
+</body>
+</html>

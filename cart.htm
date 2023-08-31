@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="cart.css">
+
+    <link rel="stylesheet" href="fruits-and-vegetables.htm">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+</head>
+<body>
+    <h2>Shopping Cart</h2>
+    <table id="cart-table">
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+        </tr>
+    </table>
+
+    <br>
+
+    <button onclick="pay()">Pay</button>
+
+    <script>
+        let cart = [];
+
+        function addToCart(name, price) {
+            let item = cart.find(item => item.name === name);
+            if (item) {
+                item.quantity++;
+            } else {
+                cart.push({name: name, price: price, quantity: 1});
+            }
+            updateCartTable();
+        }
+
+        function updateCartTable() {
+            let table = document.getElementById("cart-table");
+            let product = JSON.parse(localStorage.getItem("product"));
+            table.innerHTML = `
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>`;
+            let total = 0;
+            for (let item of cart) {
+                let row = table.insertRow();
+                row.insertCell().innerHTML = item.name;
+                row.insertCell().innerHTML = "$" + item.price;
+                row.insertCell().innerHTML = item.quantity;
+                let itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                row.insertCell().innerHTML = "$" + itemTotal;
+            }
+            let row = table.insertRow();
+            row.insertCell().innerHTML = "<b>Total</b>";
+            row.insertCell();
+            row.insertCell();
+            row.insertCell().innerHTML = "<b>$" + total + "</b>";
+        }
+
+        function pay() {
+            alert("Thank you for your purchase!");
+        }
+    </script>
+
+    <!-- You can add some CSS styles to make the page look nicer
+    For example: -->
+    <!--
+    #products {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .product {
+        width: 200px;
+        text-align: center;
+    }
+    .product img {
+        width: 100%;
+    } -->
+   
+</body>
+</html>
